@@ -1,2 +1,2 @@
-# soteria
-DIY arduino security system
+# Soteria
+DIY Arduino security system for your home
