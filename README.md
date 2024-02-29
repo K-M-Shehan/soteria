@@ -1,4 +1,4 @@
-# Soteria
+# soteria
 DIY Arduino security system for your home
 
 ### Components Used
