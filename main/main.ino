@@ -1,7 +1,7 @@
 /*
 This code will be programmed in to the main arduino board and
-this will be help the arduino to comunicate through wifi with other esp 01s (units)
-currently thus is undeditted
+this will be help the arduino to communicate through wifi with other esp 01s (units)
+currently this is uneditted
 */
 
 #include <SoftwareSerial.h>
