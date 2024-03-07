@@ -1,2 +1,2 @@
-#This sketch exist only to contain the codes related to the units(seperate esp 01s).
-#So do not put any codes related to the main here.
+This sketch exists to only contain all the code related to the unit(esp 01 units) and the function and header files related to that.
+So don't put any codes/files related to the main here.
