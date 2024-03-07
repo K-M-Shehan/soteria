@@ -1,6 +1,6 @@
 /*
-This file is for the ESP 01  wifi module to identifi an intruder
-and to sound the buzzer to warn the intruder and to inform the user about the user about
+This file is for the ESP 01  wifi module to identify an intruder
+and to sound the buzzer to warn the intruder and inform the user about the user about
 the intruder via sounding the buzzer
 */
 
@@ -28,7 +28,7 @@ void soundBuzzer(int buzzer) {
 }
 
 
-//Bellow this sound setup and  main loop is declared.
+//Bellow this sound setup and the main loop is declared.
 void setup() {
   Serial.begin(9600);
   // Set pir as input and buzzer as output
