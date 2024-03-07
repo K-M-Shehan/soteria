@@ -19,7 +19,7 @@ void setup()
   pinMode(buzzerPin, OUTPUT);
 
   // Connect to WiFi
-  connectToWiFi();
+  connectToWiFi(ssid, password);
 }
 
 void loop() 
