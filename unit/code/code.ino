@@ -1,5 +1,5 @@
 /*
-This file is for the ESP 01  whifi module to identifi an intruder
+This file is for the ESP 01  wifi module to identifi an intruder
 and to sound the buzzer to warn the intruder and to inform the user about the user about
 the intruder via sounding the buzzer
 */
