@@ -100,7 +100,7 @@ void activateBuzzer()
   digitalWrite(buzzerPin, LOW);
 }
 
-void monitorHumanPresence() 
+bool monitorHumanPresence() 
 {
   // this code monitors human presence and return true if human is still present after 20 seconds
   if (detectHumanPresence()  == true)
