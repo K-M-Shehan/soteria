@@ -15,7 +15,7 @@ void setup()
   Serial.begin(115200);
 
   // Initialize components
-  pinMode(irSensorPin, INPUT);
+  pinMode(pirSensorPin, INPUT);
   pinMode(buzzerPin, OUTPUT);
 
   // Connect to WiFi
@@ -50,7 +50,7 @@ void loop()
   }
 }
 
-void connectToWiFi() 
+void connectToWiFi(const char* ssid, const char* password) 
 {
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
@@ -100,7 +100,7 @@ void activateBuzzer()
   digitalWrite(buzzerPin, LOW);
 }
 
-void monitorHumanPresence() 
+bool monitorHumanPresence() 
 {
   // this code monitors human presence and return true if human is still present after 20 seconds
   if (detectHumanPresence()  == true)

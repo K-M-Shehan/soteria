@@ -8,6 +8,7 @@ the intruder via sounding the buzzer
 const int buzzer = 0;
 const int pir = 2;
 
+<<<<<<< HEAD
 // declaring senseMotion function
 void senseMotion(int pir, int buzzer) {
   int pirValue = digitalRead(pir);
@@ -26,6 +27,11 @@ void soundBuzzer(int buzzer) {
   tone(buzzer, 10000, 1000);
 }
 
+=======
+// Function prototypes
+void soundBuzzer(int buzzer);
+void senseMotion(int pir, int buzzer);
+>>>>>>> origin
 
 //Bellow this sound setup and the main loop is declared.
 void setup() {
@@ -41,4 +47,19 @@ void loop() {
   delay(2000);
 }
 
-
+// declaring soundBuzzer function
+void soundBuzzer(int buzzer) {
+  tone(buzzer, 1000, 500);
+}
+// declaring senseMotion function
+void senseMotion(int pir, int buzzer) {
+  int pirValue = digitalRead(pir);
+  if(pirValue == HIGH) {
+    soundBuzzer(buzzer);
+    Serial.println("Motion Detected!");
+  }
+  else {
+    noTone(buzzer);
+    Serial.println("No Motion");
+  }
+}
