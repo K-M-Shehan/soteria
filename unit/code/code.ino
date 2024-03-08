@@ -23,8 +23,7 @@ void senseMotion(int pir, int buzzer) {
 
 // declaring soundBuzzer function
 void soundBuzzer(int buzzer) {
-  tone(buzzer, 1000, 500);
-  digitalWrite(buzzer, LOW);
+  tone(buzzer, 10000, 1000);
 }
 
 
@@ -38,8 +37,6 @@ void setup() {
  
 void loop() {
   Serial.print("PIR Sensor Values: ");
-  // the below function prints a msg in the serial monitor if motion is sensed
-  // then soundBuzzer function is what makes the buzzer make noises
   senseMotion(pir, buzzer);
   delay(2000);
 }
