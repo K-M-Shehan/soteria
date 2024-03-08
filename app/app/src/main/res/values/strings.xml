@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">My first project</string>
+    <string name="turn_on_system">Turn On System</string>
+    <string name="turn_off_system">Turn Off System</string>
+    <string name="turn_on_buzzer">Turn On Buzzer</string>
+    <string name="turn_off_buzzer">Turn Off Buzzer</string>
+    <string name="this_will_turn_on_the_system">This will turn on the system</string>
+    <string name="this_will_turn_off_the_system">This will turn off the system</string>
+    <string name="this_will_turn_on_the_buzzer">This will turn on the buzzer</string>
+    <string name="this_will_turn_off_the_buzzer">This will turn off the buzzer</string>
+</resources>
