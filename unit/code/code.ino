@@ -8,6 +8,8 @@ the intruder via sounding the buzzer
 const int buzzer = 0;
 const int pir = 2;
 
+// Function prototype
+void soundBuzzer(int buzzer);
 
 //Bellow this sound setup and the main loop is declared.
 void setup() {
