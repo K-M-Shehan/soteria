@@ -24,13 +24,14 @@ void setup() {
 void loop() {
   Serial.print("PIR Sensor Values: ");
   senseMotion(pir, buzzer);
-  delay(2000);
+  delay (1000);
 }
 
 // declaring soundBuzzer function
 void soundBuzzer(int buzzer) {
-  tone(buzzer, 1000, 500);
+  tone(buzzer, 1000, 1000);
 }
+
 // declaring senseMotion function
 void senseMotion(int pir, int buzzer) {
   int pirValue = digitalRead(pir);
