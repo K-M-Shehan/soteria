@@ -4,13 +4,11 @@ and to sound the buzzer to warn the intruder and inform the user about the user 
 the intruder via sounding the buzzer
 */
 
-// Declaring GPIO 0 and GPIO 2 as buzzer and pir pins
-const int buzzer = 0;
-const int pir = 2;
+#include"localio.h"
 
-// Function prototypes
-void soundBuzzer(int buzzer);
-void senseMotion(int pir, int buzzer);
+// Declaring GPIO 0 and GPIO 2 as buzzer and pir pins
+const int pir = 4;
+const int buzzer = 5;
 
 
 //Bellow this sound setup and the main loop is declared.
@@ -24,22 +22,5 @@ void setup() {
 void loop() {
   Serial.print("PIR Sensor Values: ");
   senseMotion(pir, buzzer);
-  delay(2000);
-}
-
-// declaring soundBuzzer function
-void soundBuzzer(int buzzer) {
-  tone(buzzer, 1000, 500);
-}
-// declaring senseMotion function
-void senseMotion(int pir, int buzzer) {
-  int pirValue = digitalRead(pir);
-  if(pirValue == HIGH) {
-    soundBuzzer(buzzer);
-    Serial.println("Motion Detected!");
-  }
-  else {
-    noTone(buzzer);
-    Serial.println("No Motion");
-  }
+  delay(500);
 }
