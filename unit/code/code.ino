@@ -8,8 +8,9 @@ the intruder via sounding the buzzer
 const int buzzer = 0;
 const int pir = 2;
 
-// Function prototype
+// Function prototypes
 void soundBuzzer(int buzzer);
+void senseMotion(int pir, int buzzer);
 
 //Bellow this sound setup and the main loop is declared.
 void setup() {
