@@ -25,13 +25,15 @@ void setup() {
   delay(1000); // Wait for ESP-01 to respond
   
   // Check if ESP-01 is responding
-  if (espSerial.find("OK")) {
-    Serial.println("ESP-01 initialized successfully");
-  } else {
-    Serial.println("Error initializing ESP-01");
-    while (1); // Loop indefinitely if ESP-01 initialization fails
+  do{
+    if (espSerial.find("OK")) {
+      Serial.println("ESP-01 initialized successfully");
+    } else {
+      Serial.println("Error initializing ESP-01");
+    }
   }
-  
+  while (!(espSerial.find("OK"))); // Loop indefinitely if ESP-01 initialization fails
+
   // Connect to WiFi network
   connectToWiFi("YourWiFiSSID", "YourWiFiPassword");
 }
