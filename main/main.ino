@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include <ESP8266WiFi.h>
+#include <SoftwareSerial.h>
 #include "ssid.h"
 
 // Define the ESP-01 RX and TX pins
@@ -26,7 +26,7 @@ void setup()
 }
 
 void loop() 
-{
+{/*
   // Check for human presence
   if (detectHumanPresence()) 
   {
@@ -50,7 +50,7 @@ void loop()
       // Deactivate the buzzer
       deactivateBuzzer();
     }
-  }
+  }*/
 }
 
 
@@ -95,8 +95,8 @@ bool detectHumanPresence()
 {
   // this code detects human presence using the PIR sensor
   // Return true if human is detected, false otherwise
-  int pirValue = digitalRead(pirSensorPin);
-  if(pirValue == HIGH) 
+  int pirVal= digitalRead(pirSensorPin);
+  if(pirVal == HIGH) 
   {
     Serial.println("Motion Detected!");
     return true;
@@ -119,12 +119,6 @@ bool getUserDecision()
   // Return true if user wants to sound the buzzer, false otherwise
 }
 
-void activateBuzzer() 
-{
-  // this code activates the buzzer
-  tone(buzzerPin, 1000, 500);
-  digitalWrite(buzzerPin, LOW);
-}
 
 bool monitorHumanPresence() 
 {
@@ -146,9 +140,5 @@ void promptToCallPolice()
   // this code sends a prompt to the user's phone asking to call the police
 }
 
-void deactivateBuzzer() 
-{
-  // this code deactivates the buzzer
-  noTone(buzzerPin);
-}
+
 
