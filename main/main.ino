@@ -1,25 +1,28 @@
 #include <Wire.h>
 #include <ESP8266WiFi.h>
+#include "ssid.h"
 
-// Define pins for components
-const int pirSensorPin = 2;
-const int buzzerPin = 3;
+// Define the ESP-01 RX and TX pins
+#define ESP_RX 2   // Connect to TX pin of ESP-01
+#define ESP_TX 3   // Connect to RX pin of ESP-01
 
-// WiFi credentials
-const char *ssid = "YourWiFiSSID";
-const char *password = "YourWiFiPassword";
+// Define variables to store the  values we send and recieve through wi-fi
+int pirVal;
+int buzzerVal;
+
+// Set up software serial communication with ESP-01
+SoftwareSerial espSerial(ESP_RX, ESP_TX);
 
 void setup() 
 {
   // Initialize serial communication
-  Serial.begin(115200);
-
-  // Initialize components
-  pinMode(pirSensorPin, INPUT);
-  pinMode(buzzerPin, OUTPUT);
+  Serial.begin(9600);
+  
+  // Start software serial communication with ESP-01
+  espSerial.begin(9600);
 
   // Connect to WiFi
-  connectToWiFi(ssid, password);
+  connectToWiFi(ssid, ssid_pw);
 }
 
 void loop() 
@@ -50,20 +53,43 @@ void loop()
   }
 }
 
-void connectToWiFi(const char* ssid, const char* password) 
-{
-  // Connect to Wi-Fi
-  WiFi.begin(ssid, password);
 
-  // Wait for connection
-  while (WiFi.status() != WL_CONNECTED) 
-  {
-    delay(1000);
-    Serial.println("Connecting to WiFi...");
+// Function to connect to WiFi network
+void connectToWiFi(const char* ssid, const char* password) {
+  // Send AT command to connect to WiFi
+  espSerial.print("AT+CWJAP=\"");
+  espSerial.print(ssid);
+  espSerial.print("\",\"");
+  espSerial.print(password);
+  espSerial.println("\"");
+  
+  delay(5000); // Wait for connection
+  
+  // Check if connected to WiFi
+  if (espSerial.find("OK")) {
+    Serial.println("Connected to WiFi");
+  } else {
+    Serial.println("Error connecting to WiFi");
+    while (1); // Loop indefinitely if WiFi connection fails
   }
-
-  Serial.println("Connected to WiFi");
 }
+
+// we need to figure out among the above code and the bellow code what is best way to connect to wifi
+
+				/*void connectToWiFi(const char* ssid, const char* password) 
+				{
+				  // Connect to Wi-Fi
+				  WiFi.begin(ssid, password);
+
+				  // Wait for connection
+				  while (WiFi.status() != WL_CONNECTED) 
+				  {
+					delay(1000);
+					Serial.println("Connecting to WiFi...");
+				  }
+
+				  Serial.println("Connected to WiFi");
+				}*/
 
 bool detectHumanPresence() 
 {
