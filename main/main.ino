@@ -139,6 +139,3 @@ void promptToCallPolice()
 {
   // this code sends a prompt to the user's phone asking to call the police
 }
-
-
-
