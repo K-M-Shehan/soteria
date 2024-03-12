@@ -1,10 +1,9 @@
-#include <Wire.h>
 #include <SoftwareSerial.h>
 #include "ssid.h"
 
 // Define the ESP-01 RX and TX pins
-#define ESP_RX 2   // Connect to TX pin of ESP-01
-#define ESP_TX 3   // Connect to RX pin of ESP-01
+const int ESP_RX = 2;   // Connect to TX pin of ESP-01
+const int ESP_TX = 3;  // Connect to RX pin of ESP-01
 
 // Define variables to store the  values we send and recieve through wi-fi
 int pirVal;
@@ -20,6 +19,9 @@ void setup()
   
   // Start software serial communication with ESP-01
   espSerial.begin(9600);
+
+  //Test the software serial connection
+  testConnection();
 
   // Connect to WiFi
   connectToWiFi(ssid, ssid_pw);
@@ -53,6 +55,21 @@ void loop()
   }*/
 }
 
+//Function to test the conection between arduino uno and esp 01
+void testConnection(){
+  do{
+    espSerial.println("AT");
+    delay(1000); // Wait for ESP-01 to respond
+    
+    // Check if ESP-01 is responding
+    if (espSerial.find("OK")) {
+      Serial.println("ESP-01 initialized successfully");
+      break;
+    } else {
+      Serial.println("Error initializing ESP-01");
+    }
+  }while (1); 
+}
 
 // Function to connect to WiFi network
 void connectToWiFi(const char* ssid, const char* password) {
@@ -63,10 +80,10 @@ void connectToWiFi(const char* ssid, const char* password) {
   espSerial.print(password);
   espSerial.println("\"");
   
-  delay(5000); // Wait for connection
+  delay(2000); // Wait for connection
   
   // Check if connected to WiFi
-  if (espSerial.find("OK")) {
+  if (espSerial.find("WIFI CONNECTED") || espSerial.find("WIFI GOT IP")) {
     Serial.println("Connected to WiFi");
   } else {
     Serial.println("Error connecting to WiFi");
@@ -90,7 +107,7 @@ void connectToWiFi(const char* ssid, const char* password) {
 
 				  Serial.println("Connected to WiFi");
 				}*/
-
+/*
 bool detectHumanPresence() 
 {
   // this code detects human presence using the PIR sensor
@@ -107,7 +124,7 @@ bool detectHumanPresence()
     return false;
   }
 }
-
+*/
 void sendAlertToPhone() 
 {
   // code to send an alert to the user's phone
@@ -119,7 +136,7 @@ bool getUserDecision()
   // Return true if user wants to sound the buzzer, false otherwise
 }
 
-
+/*
 bool monitorHumanPresence() 
 {
   // this code monitors human presence and return true if human is still present after 20 seconds
@@ -135,6 +152,7 @@ bool monitorHumanPresence()
     return false;
 }
 
+*/
 void promptToCallPolice() 
 {
   // this code sends a prompt to the user's phone asking to call the police
