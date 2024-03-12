@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include <ESP8266WiFi.h>
+#include <SoftwareSerial.h>
 #include "ssid.h"
 
 // Define the ESP-01 RX and TX pins
@@ -151,4 +151,3 @@ void deactivateBuzzer()
   // this code deactivates the buzzer
   noTone(buzzerPin);
 }
-
