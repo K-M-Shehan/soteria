@@ -15,10 +15,10 @@ SoftwareSerial espSerial(ESP_RX, ESP_TX);
 void setup() 
 {
   // Initialize serial communication
-  Serial.begin(9600);
+  Serial.begin(115200);
   
   // Start software serial communication with ESP-01
-  espSerial.begin(9600);
+  espSerial.begin(115200);
 
   //Test the software serial connection
   testConnection();
