@@ -60,22 +60,7 @@ void connectToWiFi(const char* ssid, const char* password) {
   Serial.println(WiFi.localIP());
 }
 
-// we need to figure out among the above code and the bellow code what is best way to connect to wifi
 
-				/*void connectToWiFi(const char* ssid, const char* password) 
-				{
-				  // Connect to Wi-Fi
-				  WiFi.begin(ssid, password);
-
-				  // Wait for connection
-				  while (WiFi.status() != WL_CONNECTED) 
-				  {
-					delay(1000);
-					Serial.println("Connecting to WiFi...");
-				  }
-
-				  Serial.println("Connected to WiFi");
-				}*/
 /*
 bool detectHumanPresence() 
 {
@@ -93,19 +78,18 @@ bool detectHumanPresence()
     return false;
   }
 }
-*/
+
 void sendAlertToPhone() 
 {
   // code to send an alert to the user's phone
 }
 
-/*bool getUserDecision() 
+bool getUserDecision() 
 {
   // this code interacts with the user and get their decision
   // Return true if user wants to sound the buzzer, false otherwise
-}*/
+}
 
-/*
 bool monitorHumanPresence() 
 {
   // this code monitors human presence and return true if human is still present after 20 seconds
@@ -121,8 +105,8 @@ bool monitorHumanPresence()
     return false;
 }
 
-*/
 void promptToCallPolice() 
 {
   // this code sends a prompt to the user's phone asking to call the police
 }
+*/
