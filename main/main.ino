@@ -1,28 +1,16 @@
-#include <SoftwareSerial.h>
+#include <ESP8266WiFi.h>
 #include "ssid.h"
 
-// Define the ESP-01 RX and TX pins
-const int ESP_RX = 2;   // Connect to TX pin of ESP-01
-const int ESP_TX = 3;  // Connect to RX pin of ESP-01
-
 // Define variables to store the  values we send and recieve through wi-fi
-int pirVal;
-int buzzerVal;
+//int pirVal;
+//int buzzerVal;
 
-// Set up software serial communication with ESP-01
-SoftwareSerial espSerial(ESP_RX, ESP_TX);
 
 void setup() 
 {
   // Initialize serial communication
   Serial.begin(115200);
   
-  // Start software serial communication with ESP-01
-  espSerial.begin(115200);
-
-  //Test the software serial connection
-  testConnection();
-
   // Connect to WiFi
   connectToWiFi(ssid, ssid_pw);
 }
@@ -55,58 +43,24 @@ void loop()
   }*/
 }
 
-//Function to test the conection between arduino uno and esp 01
-void testConnection(){
-  do{
-    espSerial.println("AT");
-    delay(1000); // Wait for ESP-01 to respond
-    
-    // Check if ESP-01 is responding
-    if (espSerial.find("OK")) {
-      Serial.println("ESP-01 initialized successfully");
-      break;
-    } else {
-      Serial.println("Error initializing ESP-01");
-    }
-  }while (1); 
-}
 
 // Function to connect to WiFi network
 void connectToWiFi(const char* ssid, const char* password) {
-  // Send AT command to connect to WiFi
-  espSerial.print("AT+CWJAP=\"");
-  espSerial.print(ssid);
-  espSerial.print("\",\"");
-  espSerial.print(password);
-  espSerial.println("\"");
+// Connect to WiFi network
+  WiFi.begin(ssid, password);
   
-  delay(2000); // Wait for connection
-  
-  // Check if connected to WiFi
-  if (espSerial.find("WIFI CONNECTED") || espSerial.find("WIFI GOT IP")) {
-    Serial.println("Connected to WiFi");
-  } else {
-    Serial.println("Error connecting to WiFi");
-    while (1); // Loop indefinitely if WiFi connection fails
+  Serial.print("Connecting to WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
   }
+  Serial.println("\nConnected to WiFi");
+
+  // Print ESP8266 local IP address
+  Serial.println(WiFi.localIP());
 }
 
-// we need to figure out among the above code and the bellow code what is best way to connect to wifi
 
-				/*void connectToWiFi(const char* ssid, const char* password) 
-				{
-				  // Connect to Wi-Fi
-				  WiFi.begin(ssid, password);
-
-				  // Wait for connection
-				  while (WiFi.status() != WL_CONNECTED) 
-				  {
-					delay(1000);
-					Serial.println("Connecting to WiFi...");
-				  }
-
-				  Serial.println("Connected to WiFi");
-				}*/
 /*
 bool detectHumanPresence() 
 {
@@ -124,7 +78,7 @@ bool detectHumanPresence()
     return false;
   }
 }
-*/
+
 void sendAlertToPhone() 
 {
   // code to send an alert to the user's phone
@@ -136,7 +90,6 @@ bool getUserDecision()
   // Return true if user wants to sound the buzzer, false otherwise
 }
 
-/*
 bool monitorHumanPresence() 
 {
   // this code monitors human presence and return true if human is still present after 20 seconds
@@ -152,8 +105,8 @@ bool monitorHumanPresence()
     return false;
 }
 
-*/
 void promptToCallPolice() 
 {
   // this code sends a prompt to the user's phone asking to call the police
 }
+*/
