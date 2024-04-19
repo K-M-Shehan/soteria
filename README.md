@@ -1,3 +1,5 @@
+THIS IS THE  CURRENT BRANCH WE ARE WORKING ON
+
 # soteria
 DIY Arduino security system for your home
 
