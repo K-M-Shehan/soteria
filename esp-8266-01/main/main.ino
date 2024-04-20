@@ -1,5 +1,5 @@
 #include <ESP8266WiFi.h>
-#include "ssid.h"
+#include "../wi_fi/ssid.h"
 
 // Define variables to store the  values we send and recieve through wi-fi
 //int pirVal;
