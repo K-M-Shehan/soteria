@@ -2,12 +2,7 @@
 #include "../wi_fi/ssid.h"
 #include "../wi_fi/wi_fi.h"
 
-ESP8266WebServer server(80);
-
-// Define variables to store the  values we send and recieve through wi-fi
-//int pirVal;
-//int buzzerVal;
-
+ESP8266WebServer server(serverPort);
 
 void setup() 
 {
@@ -16,10 +11,35 @@ void setup()
   
   // Connect to WiFi defined in "../wi_fi/wi_fi.ino"
   connectToWiFi(ssid, ssid_pw);
+
+
+	// Start the server
+  server.begin();
+  Serial.println("Server started");
 }
 
 void loop() 
-{/*
+{
+	WiFiClient client = server.available();
+
+	//following code only run if the client is available
+  if (client) {
+    Serial.println("New client connected");
+    // Read data from the client
+    while (client.connected()) {
+      if (client.available()) {
+        String request = client.readStringUntil('\r');
+        Serial.println("Received: " + request);
+        // Process the received data
+        // You can send a response back to the client if needed
+      }
+    }
+    // Close the connection
+    client.stop();
+    Serial.println("Client disconnected");
+	}
+
+	/*
   // Check for human presence
   if (detectHumanPresence()) 
   {
