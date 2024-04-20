@@ -2,7 +2,7 @@
 #include "../wi_fi/ssid.h"
 #include "../wi_fi/wi_fi.h"
 
-ESP8266WebServer server(serverPort);
+WiFiServer server(serverPort);
 
 void setup() 
 {
