@@ -1,6 +1,6 @@
 //This file contains all the functions mentionend in the local.h header file
 
-
+#include"localio.h"
 
 // declaring soundBuzzer function for the buzzer module
 void soundBuzzer(int buzzer) {
