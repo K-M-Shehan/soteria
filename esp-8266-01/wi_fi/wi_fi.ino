@@ -11,13 +11,16 @@
 void connectToWiFi(const char* ssid, const char* password) {
 	// Connect to WiFi network
 	WiFi.begin(ssid, password);
+	Serial.println();
+  Serial.print("Connecting to: ");
+  Serial.println(ssid);
 
-	Serial.print("Connecting to WiFi");
 	while (WiFi.status() != WL_CONNECTED) {
 	  delay(500);
 	  Serial.print(".");
 	}
 	Serial.println("\nConnected to WiFi");
 	// Print ESP8266 local IP address
+	Serial.print("The local ip address is: ");
 	Serial.println(WiFi.localIP());
 }
