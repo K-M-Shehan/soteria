@@ -1,5 +1,8 @@
 #include <ESP8266WiFi.h>
 #include "../wi_fi/ssid.h"
+#include "../wi_fi/wi_fi.h"
+
+ESP8266WebServer server(80);
 
 // Define variables to store the  values we send and recieve through wi-fi
 //int pirVal;
@@ -11,7 +14,7 @@ void setup()
   // Initialize serial communication
   Serial.begin(115200);
   
-  // Connect to WiFi
+  // Connect to WiFi defined in "../wi_fi/wi_fi.ino"
   connectToWiFi(ssid, ssid_pw);
 }
 
@@ -41,23 +44,6 @@ void loop()
       deactivateBuzzer();
     }
   }*/
-}
-
-
-// Function to connect to WiFi network
-void connectToWiFi(const char* ssid, const char* password) {
-// Connect to WiFi network
-  WiFi.begin(ssid, password);
-  
-  Serial.print("Connecting to WiFi");
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("\nConnected to WiFi");
-
-  // Print ESP8266 local IP address
-  Serial.println(WiFi.localIP());
 }
 
 
