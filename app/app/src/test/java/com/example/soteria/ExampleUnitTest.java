@@ -1,4 +1,4 @@
-package com.example.myfirstproject;
+package com.example.soteria;
 
 import org.junit.Test;
 

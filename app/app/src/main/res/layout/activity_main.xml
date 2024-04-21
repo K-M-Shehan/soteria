@@ -3,41 +3,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btnTurnOnSystem"
-        android:layout_width="wrap_content"
+        android:id="@+id/systemOnBtn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Turn On System"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginBottom="16dp"
+        android:text="@string/turn_system_on"
+        android:background="#2196F3"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
 
     <Button
-        android:id="@+id/btnTurnOffSystem"
-        android:layout_width="wrap_content"
+        android:id="@+id/systemOffBtn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Turn Off System"
-        android:layout_below="@id/btnTurnOnSystem"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_below="@id/systemOnBtn"
+        android:layout_marginBottom="16dp"
+        android:text="@string/turn_system_off"
+        android:background="#FF5722"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
 
     <Button
-        android:id="@+id/btnTurnOnBuzzer"
-        android:layout_width="wrap_content"
+        android:id="@+id/buzzerOnBtn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Turn On Buzzer"
-        android:layout_below="@id/btnTurnOffSystem"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_below="@id/systemOffBtn"
+        android:layout_marginBottom="16dp"
+        android:text="@string/turn_buzzer_on"
+        android:background="#4CAF50"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
 
     <Button
-        android:id="@+id/btnTurnOffBuzzer"
-        android:layout_width="wrap_content"
+        android:id="@+id/buzzerOffBtn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Turn Off Buzzer"
-        android:layout_below="@id/btnTurnOnBuzzer"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_below="@id/buzzerOnBtn"
+        android:text="@string/turn_buzzer_off"
+        android:background="#FF9800"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
 
 </RelativeLayout>

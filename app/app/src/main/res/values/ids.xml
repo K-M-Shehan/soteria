@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="btnTurnOnSystem" type="id" />
-    <item name="btnTurnOffSystem" type="id" />
-    <item name="btnTurnOnBuzzer" type="id" />
-    <item name="btnTurnOffBuzzer" type="id" />
-</resources>

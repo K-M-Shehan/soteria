@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "My first project"
+rootProject.name = "Soteria"
 include(":app")
  

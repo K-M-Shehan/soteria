@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.myfirstproject"
+    namespace = "com.example.soteria"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.myfirstproject"
+        applicationId = "com.example.soteria"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
