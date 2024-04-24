@@ -25,8 +25,8 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String ARDUINO_IP = "192.168.1.100"; // Replace with your Arduino's IP address
-    private static final int ARDUINO_PORT = 1234; // Replace with your Arduino's port number
+    private static final String ARDUINO_IP = "192.168.193.141"; // Replace with your Arduino's IP address
+    private static final int ARDUINO_PORT = 80; // Replace with your Arduino's port number
     private static final String CHANNEL_ID = "notification_channel";
     private static final int DISTANCE_THRESHOLD = 5; // Adjust this threshold as per your sensor
 
