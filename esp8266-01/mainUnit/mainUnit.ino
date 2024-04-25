@@ -1,6 +1,5 @@
 #include <ESP8266WiFi.h>
-#include "../wi_fi/ssid.h"
-#include "../wi_fi/wi_fi.h"
+#include "/media/g0602/New Volume/SLIIT_DOCs/Y1S1/Computational Thinking/soteria/esp8266-01/wi_fi/ssid.h" //you need to add the absolute link of this file here
 
 WiFiServer server(serverPort);
 
