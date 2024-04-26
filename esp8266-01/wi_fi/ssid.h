@@ -4,5 +4,5 @@
 const char ssid[] = "Just A WiFi";
 const char ssid_pw[] = "00opin00";
 const int serverPort = 80;
-const int serverIp = "192.168.193.141";
+const char serverIp[] = "192.168.193.141";
 #endif

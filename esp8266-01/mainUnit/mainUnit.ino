@@ -7,6 +7,7 @@ void setup()
 {
   // Initialize serial communication
   Serial.begin(115200);
+  delay(10);
   
   // Connect to WiFi defined in "../wi_fi/wi_fi.ino"
   connectToWiFi(ssid, ssid_pw);
