@@ -2,6 +2,8 @@
 #include "/media/g0602/New Volume/SLIIT_DOCs/Y1S1/Computational Thinking/soteria/esp8266-01/wi_fi/ssid.h" //you need to add the absolute link of this file here
 
 WiFiServer server(serverPort);
+WiFiClient clients[maxClients]; // Array to store client objects
+bool clientActive[maxClients] = {false}; // Array to track active clients
 
 void setup() 
 {
@@ -23,21 +25,37 @@ void loop()
 	WiFiClient client = server.available();
 
 	//following code only run if the client is available
-  if (client) {
-    Serial.println("New client connected");
-    // Read data from the client
-    while (client.connected()) {
-      if (client.available()) {
-        String request = client.readStringUntil('\r');
-        Serial.println("Received: " + request);
-        // Process the received data
-        // You can send a response back to the client if needed
+   if (newClient) {
+    // Find an empty slot in the clients array
+    for (int i = 0; i < maxClients; i++) {
+      if (!clientActive[i]) {
+        clients[i] = newClient;
+        clientActive[i] = true;
+        Serial.println("New client connected");
+        break;
       }
     }
-    // Close the connection
-    client.stop();
-    Serial.println("Client disconnected");
-	}
+  }
+
+  // Handle each connected client
+  for (int i = 0; i < maxClients; i++) {
+    if (clientActive[i]) {
+      if (clients[i].connected()) {
+        if (clients[i].available()) {
+          String request = clients[i].readStringUntil('\r');
+          Serial.println("Received from client " + String(i) + ": " + request);
+          // Process the received data
+          // Example: Echo back to the client
+          clients[i].println("Echo: " + request);
+        }
+      } else {
+        // Client disconnected, clean up
+        clients[i].stop();
+        clientActive[i] = false;
+        Serial.println("Client " + String(i) + " disconnected");
+      }
+    }
+  }
 
 	/*
   // Check for human presence
