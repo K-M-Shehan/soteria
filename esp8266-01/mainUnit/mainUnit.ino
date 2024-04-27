@@ -50,10 +50,14 @@ void loop()
       if (clients[i].connected()) {
         if (clients[i].available()) {
           String request = clients[i].readStringUntil('\r');
-          Serial.println("Received from client " + String(i) + ": " + request);
+          Serial.println("Received from client " + String(i) + ": " + request[1]);
+          
           // Process the received data
-          // Example: Echo back to the client
-          clients[i].println("Echo: " + request);
+          if (request[1]== '1'){
+            clients[i].println('1');
+          } else {
+            clients[i].println('0');
+          }
         }
       } else {
         // Client disconnected, clean up
