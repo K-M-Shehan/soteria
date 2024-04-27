@@ -5,6 +5,13 @@ WiFiServer server(serverPort);
 WiFiClient clients[maxClients]; // Array to store client objects
 bool clientActive[maxClients] = {false}; // Array to track active clients
 
+typedef struct{
+  int input;
+  int output;
+} Sub; // a structure to send and recive information with subunit
+
+Sub sub[maxClients - 1];// an array of Sub class to trnsfer data
+
 void setup() 
 {
   // Initialize serial communication
@@ -22,7 +29,7 @@ void setup()
 
 void loop() 
 {
-	WiFiClient client = server.available();
+	WiFiClient newClient = server.available();
 
 	//following code only run if the client is available
    if (newClient) {
