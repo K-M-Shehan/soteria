@@ -5,8 +5,7 @@ the intruder via sounding the buzzer
 */
 
 #include <ESP8266WiFi.h>
-#include "/media/g0602/New Volume/SLIIT_DOCs/Y1S1/Computational Thinking/soteria/esp8266-01/wi_fi/ssid.h" //you need to add the absolute link of this file here 
-#include "localio.h"
+#include "/media/g0602/New Volume/SLIIT_DOCs/Y1S1/Computational Thinking/soteria/esp8266-01/wi_fi/ssid.h" //you need to add the absolute link of this file here
 
 // Declaring GPIO 0 and GPIO 2 as buzzer and pir pins
 const int pir = 0;
@@ -18,6 +17,7 @@ WiFiClient client;
 //Bellow this sound setup and the main loop is declared.
 void setup() {
   Serial.begin(115200);
+  delay(10);
 
   // Set pir as input and buzzer as output
   pinMode(pir, INPUT);
@@ -29,20 +29,31 @@ void setup() {
   // Connect to the server
   Serial.print("Connecting to server: ");
   Serial.println(serverIp);
-
-  if (client.connect(serverIp, serverPort)) {
-    /*make some kind of sound to indicate the connection is sucesfull
-    
-    Once connected, send data to the server
-    client.println("Hello from client");*/
-
-  } else {
-    //make some kind of sound to indicate the connection is not sucesfull
+  while (!client.connect(serverIp, serverPort)) {
+    Serial.println("Connection to server failed");
+    delay(100);
   }
+  Serial.println("Connected to server");
+  tone(buzzer, 1000, 1000); // to indicate the server is connected
 }
  
 void loop() {
-  Serial.print("PIR Sensor Values: ");
-  senseMotion(pir, buzzer);
-  delay(1000);
+   // Sense motion and send PIR value to server
+  int pirValue = digitalRead(pir);
+  client.println(1);
+  Serial.println("PIR Value sent to server");
+
+  // Check for reply from server
+  if (client.available()) {
+    String reply = client.readStringUntil('\r'); // Read a single character
+    Serial.print("Server reply: ");
+    Serial.println(reply[1]);
+
+    action(reply[1]); // this will take action acording to the reply from the main unit
+
+  } else {
+    Serial.println("server is not available"); 
+  }
+
+  delay(500);
 }
