@@ -35,19 +35,16 @@ void loop()
     if (app.connected()) {
       if (app.available()) {
         String command = app.readStringUntil('\r');
+        Serial.println("Received from app: " + command[1]);
 
-        switch(command[1]){
-          case 1: syStatus = 1;//this indicate theat the system is online
-                  Serial.println("Received from app: " + command[1]);
+        switch(command[3]){
+          case '1': syStatus = 1;//this indicate theat the system is online
                   break;
-          case 2: syStatus = 0;//this indicate theat the system is offline
-                  Serial.println("Received from app: " + command[1]);
+          case '2': syStatus = 0;//this indicate theat the system is offline
                   break;
-          case 3: buzStatus = 1;//this indicate theat the buzzer is online
-                  Serial.println("Received from app: " + command[1]);
+          case '3': buzStatus = 1;//this indicate theat the buzzer is online
                   break;
-          case 4: buzStatus = 0;//this indicate theat the buzzer is offline
-                  Serial.println("Received from app: " + command[1]);
+          case '4': buzStatus = 0;//this indicate theat the buzzer is offline
                   break;
           default : break;
         }
