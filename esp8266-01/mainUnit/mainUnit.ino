@@ -27,8 +27,7 @@ void setup() {
   Serial.println("Server started");
 }
 
-void loop() 
-{
+void loop() {
   WiFiClient app = app_server.available();
   if (app){
     Serial.println("App connected");
@@ -50,7 +49,7 @@ void loop()
         }
       }
     }
-  
+  }
 
 	WiFiClient newClient = unit_server.available();
 
