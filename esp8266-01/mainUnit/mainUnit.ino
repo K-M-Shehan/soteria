@@ -34,7 +34,7 @@ void loop() {
     if (app.connected()) {
       if (app.available()) {
         String command = app.readStringUntil('\r');
-        Serial.println("Received from app: " + command[1]);
+        Serial.println("Received from app: " + command[3]);
 
         switch(command[3]){
           case '1': syStatus = 1;//this indicate theat the system is online
