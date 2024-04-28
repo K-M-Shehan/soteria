@@ -3,7 +3,7 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
-#include "/media/g0602/New Volume/SLIIT_DOCs/Y1S1/Computational Thinking/soteria/esp8266-01/wi_fi/ssid.h" //you need to add the absolute link of the "ssid.h" file here 
+#include "D:\SLIIT\Computational Thinking First Project\New folder\soteria\esp8266-01\wi_fi\ssid.h" //you need to add the absolute link of the "ssid.h" file here 
 
 
 // Function to connect to WiFi network

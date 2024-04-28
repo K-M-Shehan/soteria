@@ -1,5 +1,5 @@
 #include <ESP8266WiFi.h>
-#include "/media/g0602/New Volume/SLIIT_DOCs/Y1S1/Computational Thinking/soteria/esp8266-01/wi_fi/ssid.h" //you need to add the absolute link of this file here
+#include "D:\SLIIT\Computational Thinking First Project\New folder\soteria\esp8266-01\wi_fi\ssid.h" //you need to add the absolute link of this file here
 
 WiFiServer unit_server(unitPort); // port to connect with the sub units
 WiFiServer app_server(appPort); // port to connect with the app
@@ -7,16 +7,18 @@ WiFiServer app_server(appPort); // port to connect with the app
 WiFiClient clients[maxUnits]; // Array to store client objects
 bool clientActive[maxUnits] = {false}; // Array to track active clients
 
-bool status = 1; //This indicate whether to sound the buzzer or not
+bool syStatus = 1; //This indicate whether to sound the buzzer or not
+bool buzStatus = 1; //This indicate whether to sound the buzzer or not
 
-void setup() 
-{
+void connectToWiFi(const char* ssid, const char* password);
+
+void setup() {
   // Initialize serial communication
   Serial.begin(115200);
   delay(10);
   
   // Connect to WiFi defined in "../wi_fi/wi_fi.ino"
-  connectToWiFi(ssid, ssid_pw);
+  //connectToWiFi(ssid, ssid_pw);
 
 
 	// Start the server
@@ -28,23 +30,30 @@ void setup()
 void loop() 
 {
   WiFiClient app = app_server.available();
+  if (app){
+    Serial.println("App connected");
+    if (app.connected()) {
+      if (app.available()) {
+        String command = app.readStringUntil('\r');
 
-  if (app.connected()) {
-    if (app.available()) {
-      String command = app.readStringUntil('\r');
-
-      switch(command[1]){
-        case 1: break;
-        case 2: break;
-        case 3: break;
-        case 4: break;
-        case 5: break;
-        case 6: break;
-        case 7: break;
-        default : break;
+        switch(command[1]){
+          case 1: syStatus = 1;//this indicate theat the system is online
+                  Serial.println("Received from app: " + command[1]);
+                  break;
+          case 2: syStatus = 0;//this indicate theat the system is offline
+                  Serial.println("Received from app: " + command[1]);
+                  break;
+          case 3: buzStatus = 1;//this indicate theat the buzzer is online
+                  Serial.println("Received from app: " + command[1]);
+                  break;
+          case 4: buzStatus = 0;//this indicate theat the buzzer is offline
+                  Serial.println("Received from app: " + command[1]);
+                  break;
+          default : break;
+        }
       }
     }
-  }
+  
 
 	WiFiClient newClient = unit_server.available();
 
@@ -69,8 +78,12 @@ void loop()
           String request = clients[i].readStringUntil('\r');
           Serial.println("Received from client " + String(i) + ": " + request[1]);
           
+          if(syStatus == 0){
+            clients[i].println('0');
+            continue;
+          }
           // Process the received data
-          if (request[1]== '1'){
+          if ((request[1]== '1') && (buzStatus == 1)){
             clients[i].println('1');
           } else {
             clients[i].println('0');
