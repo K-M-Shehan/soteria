@@ -99,11 +99,13 @@ public class MainActivity extends AppCompatActivity {
     private void sendData(final String data) {
         new Thread(() -> {
             try {
-                Socket socket = new Socket(ARDUINO_IP, ARDUINO_PORT);
-                OutputStream outputStream = socket.getOutputStream();
+                HttpURLConnection connection = (HttpURLConnection) new URL("http://" + ARDUINO_IP + ":" + ARDUINO_PORT + "/").openConnection();
+                connection.setRequestMethod("POST");
+                connection.setDoOutput(true);
+                OutputStream outputStream = connection.getOutputStream();
                 outputStream.write(data.getBytes());
                 outputStream.flush();
-                socket.close();
+                connection.disconnect();
             } catch (IOException e) {
                 e.printStackTrace();
             }
