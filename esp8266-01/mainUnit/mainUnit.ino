@@ -1,8 +1,5 @@
-#include <ESP8266WiFi.h>
-#include <BlynkSimpleEsp8266.h>
-#include <WiFiClient.h>
-#include <ESP8266WebServer.h>
-#include "D:\SLIIT\Computational Thinking First Project\New folder\soteria\esp8266-01\wi_fi\ssid.h" //you need to add the absolute link of this file here
+#include "/media/g0602/New Volume/SLIIT_DOCs/Y1S1/Computational Thinking/soteria/esp8266-01/wi_fi/ssid.h" //you need to add the absolute link of this file here
+
 
 WiFiServer unit_server(unitPort); // port to connect with the sub units
 
@@ -11,32 +8,15 @@ bool clientActive[maxUnits] = {false}; // Array to track active clients
 
 bool syStatus = 1; //This indicate whether to sound the buzzer or not
 bool buzStatus = 1; //This indicate whether to sound the buzzer or not
-
-// Function to connect to WiFi network
-void connectToWiFi(const char* ssid, const char* password) {
-	// Connect to WiFi network
-	WiFi.begin(ssid, password);
-	Serial.println();
-  Serial.print("Connecting to: ");
-  Serial.println(ssid);
-
-	while (WiFi.status() != WL_CONNECTED) {
-	  delay(500);
-	  Serial.print(".");
-	}
-	Serial.println("\nConnected to WiFi");
-	// Print ESP8266 local IP address
-	Serial.print("The local ip address is: ");
-	Serial.println(WiFi.localIP());
-}
+bool buzzzVal = 0; //This value help to manually sound the buzzer
 
 void setup() {
   // Initialize serial communication
   Serial.begin(115200);
   delay(10);
   
-  // Connect to WiFi defined in "../wi_fi/wi_fi.ino"
-  connectToWiFi(ssid, ssid_pw);
+  // connect to the blynk cloud via internet
+  Blynk.begin(auth, ssid, ssid_pw);
 
 
 	// Start the server
@@ -44,11 +24,23 @@ void setup() {
   Serial.println("Server started");
 }
 
+BLYNK_WRITE(V0) {
+  syStatus = param.asInt(); // getting values from the app and assining them to the variables
+  Serial.println("V0 = " + String(syStatus));
+}
+
+BLYNK_WRITE(V1) {
+  buzStatus = param.asInt(); // getting values from the app and assining them to the variables
+  Serial.println("V0 = " + String(buzStatus));
+}
+
+BLYNK_WRITE(V2) {
+  buzzzVal = param.asInt(); // getting values from the app and assining them to the variables
+  Serial.println("V0 = " + String(buzzzVal));
+}
+
 void loop() {
   Blynk.run();
-
-  syStatus = Blynk.virtualRead(V0);
-  buzStatus = Blynk.virtualRead(V1); // grtting values from the app and assining them to the variables
 
 	WiFiClient newClient = unit_server.available();
 
@@ -75,7 +67,7 @@ void loop() {
 
           if (request[1]== '1'){
             Serial.println("Motion detected from unit \"" + String(i +1)+ "\"");
-            Blynk.notify("Motion detected from unit \"" + String(i +1)+ "\""); // Send notification to Blynk app
+            Blynk.virtualWrite(V3, int(request[1])); // Send notification to Blynk app
           }
 
           if(syStatus == 0){
@@ -98,9 +90,11 @@ void loop() {
     }
   }
 
-  while(Blynk.virtualRead(V3)){
+  while(buzzzVal){
     for (int i = 0; i < maxUnits; i++){
       clients[i].println('1');
     }
+    Serial.println("Buzzzing........");
+    Blynk.run();
   }
 }

@@ -4,9 +4,6 @@ and to sound the buzzer to warn the intruder and inform the user about the user 
 the intruder via sounding the buzzer
 */
 
-#include <ESP8266WiFi.h>
-#include <WiFiClient.h>
-#include <ESP8266WebServer.h>
 #include "/media/g0602/New Volume/SLIIT_DOCs/Y1S1/Computational Thinking/soteria/esp8266-01/wi_fi/ssid.h" //you need to add the absolute link of this file here
 
 // Declaring GPIO 0 and GPIO 2 as buzzer and pir pins
@@ -70,7 +67,7 @@ void setup() {
   // Connect to the server
   Serial.print("Connecting to server: ");
   Serial.println(serverIp);
-  while (!client.connect(serverIp, serverPort)) {
+  while (!client.connect(serverIp, unitPort)) {
     Serial.println("Connection to server failed");
     delay(100);
   }
@@ -83,7 +80,7 @@ void loop() {
   int pirValue = digitalRead(pir);
   unsigned long currentTime = millis();
 
-  if (motion == HIGH && currentTime - lastMotionTime > motionCooldownPeriod){
+  if (pirValue == HIGH && currentTime - lastMotionTime > motionCooldownPeriod){
     client.println(pirValue);
   } else {
     client.println(0);
