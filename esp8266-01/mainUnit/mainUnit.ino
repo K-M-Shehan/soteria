@@ -1,5 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
 #include "D:\SLIIT\Computational Thinking First Project\New folder\soteria\esp8266-01\wi_fi\ssid.h" //you need to add the absolute link of this file here
 
 WiFiServer unit_server(unitPort); // port to connect with the sub units
@@ -10,7 +12,23 @@ bool clientActive[maxUnits] = {false}; // Array to track active clients
 bool syStatus = 1; //This indicate whether to sound the buzzer or not
 bool buzStatus = 1; //This indicate whether to sound the buzzer or not
 
-void connectToWiFi(const char* ssid, const char* password);
+// Function to connect to WiFi network
+void connectToWiFi(const char* ssid, const char* password) {
+	// Connect to WiFi network
+	WiFi.begin(ssid, password);
+	Serial.println();
+  Serial.print("Connecting to: ");
+  Serial.println(ssid);
+
+	while (WiFi.status() != WL_CONNECTED) {
+	  delay(500);
+	  Serial.print(".");
+	}
+	Serial.println("\nConnected to WiFi");
+	// Print ESP8266 local IP address
+	Serial.print("The local ip address is: ");
+	Serial.println(WiFi.localIP());
+}
 
 void setup() {
   // Initialize serial communication
