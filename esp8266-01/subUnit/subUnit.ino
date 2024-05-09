@@ -5,14 +5,55 @@ the intruder via sounding the buzzer
 */
 
 #include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
 #include "/media/g0602/New Volume/SLIIT_DOCs/Y1S1/Computational Thinking/soteria/esp8266-01/wi_fi/ssid.h" //you need to add the absolute link of this file here
 
 // Declaring GPIO 0 and GPIO 2 as buzzer and pir pins
 const int pir = 0;
 const int buzzer = 2;
 
+const unsigned long motionCooldownPeriod = 2000; // Cooldown period in milliseconds
+unsigned long lastMotionTime = 0;
+
 //setting this esp-01 as the client
 WiFiClient client;
+
+// Function to connect to WiFi network
+void connectToWiFi(const char* ssid, const char* password) {
+	// Connect to WiFi network
+	WiFi.begin(ssid, password);
+	Serial.println();
+  Serial.print("Connecting to: ");
+  Serial.println(ssid);
+
+	while (WiFi.status() != WL_CONNECTED) {
+	  delay(500);
+	  Serial.print(".");
+	}
+	Serial.println("\nConnected to WiFi");
+	// Print ESP8266 local IP address
+	Serial.print("The local ip address is: ");
+	Serial.println(WiFi.localIP());
+}
+
+// declaring soundBuzzer function for the buzzer module
+void soundBuzzer(int buzzer) {
+  tone(buzzer, 1000, 500);
+  delay(1000);
+}
+
+// declaring senseMotion function for pir sensor
+void action(char reply) {
+  if(reply == '1') {
+    soundBuzzer(buzzer);//hear the unit need to send the 
+    Serial.println("Motion Detected!");
+  }
+  else {
+    noTone(buzzer);
+    Serial.println("No Motion");
+  }
+}
 
 //Bellow this sound setup and the main loop is declared.
 void setup() {
@@ -40,7 +81,13 @@ void setup() {
 void loop() {
    // Sense motion and send PIR value to server
   int pirValue = digitalRead(pir);
-  client.println(1);
+  unsigned long currentTime = millis();
+
+  if (motion == HIGH && currentTime - lastMotionTime > motionCooldownPeriod){
+    client.println(pirValue);
+  } else {
+    client.println(0);
+  }
   Serial.println("PIR Value sent to server");
 
   // Check for reply from server
