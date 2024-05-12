@@ -17,11 +17,16 @@ void setup() {
   
   // connect to the blynk cloud via internet
   Blynk.begin(auth, ssid, ssid_pw);
+  Serial.println();
 
 
 	// Start the server
   unit_server.begin();
   Serial.println("Server started");
+
+  // to print the local ip address
+  Serial.print("The local ip address is: ");
+	Serial.println(WiFi.localIP());
 }
 
 BLYNK_WRITE(V0) {

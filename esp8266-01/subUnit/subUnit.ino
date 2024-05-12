@@ -78,14 +78,17 @@ void setup() {
 void loop() {
    // Sense motion and send PIR value to server
   int pirValue = digitalRead(pir);
+
+  // to calculate time
   unsigned long currentTime = millis();
 
-  if (pirValue == HIGH && currentTime - lastMotionTime > motionCooldownPeriod){
-    client.println(pirValue);
+  if (pirValue == HIGH && ((currentTime - lastMotionTime) > motionCooldownPeriod)){
+    client.println(1);
+    Serial.println("sent : 1");
   } else {
     client.println(0);
+    Serial.println("sent : 0");
   }
-  Serial.println("PIR Value sent to server");
 
   // Check for reply from server
   if (client.available()) {
