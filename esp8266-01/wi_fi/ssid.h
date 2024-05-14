@@ -10,7 +10,7 @@
 #include <ESP8266WebServer.h>
 #include <BlynkSimpleEsp8266.h>
 
-const char auth[] = "hmVq32NgO7TurhePenX_w2cpD5bTwnkW";
+const char auth[] = "ybXdWDpvxk_9Gc8LdynfktOvV6EohS68";
 const char ssid[] = "Just A WiFi";
 const char ssid_pw[] = "00opin00";
 const int unitPort = 8080;

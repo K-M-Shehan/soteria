@@ -78,7 +78,8 @@ void loop() {
 
           if (request[1]== '1'){
             Serial.println("Motion detected from unit \"" + String(i +1)+ "\"");
-            Blynk.virtualWrite(V3, 1); // Send notification to Blynk app
+            Blynk.virtualWrite(V3, 1); 
+            Blynk.logEvent("motion_detected");
           }
 
           // Process the received data
@@ -108,5 +109,7 @@ void loop() {
     Serial.println("Buzzzing........");
     Blynk.run();
   }
+
+  Blynk.virtualWrite(V3, 0); 
   delay(100);
 }
