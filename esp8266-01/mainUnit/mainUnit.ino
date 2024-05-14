@@ -62,45 +62,45 @@ void loop() {
     }
   }
 
-  // Handle each connected client
-  for (int i = 0; i < maxUnits; i++) {
-    if (clientActive[i]) {
-      if (clients[i].connected()) {
-        if (clients[i].available()) {
-          String request = clients[i].readStringUntil('\r');
-          Serial.println("Received from client " + String(i) + ": " + request[1]);
+  if(!(buzzzVal && syStatus)){
+    // Handle each connected client
+    for (int i = 0; i < maxUnits; i++) {
+      if (clientActive[i]) {
+        if (clients[i].connected()) {
+          if (clients[i].available()) {
+            String request = clients[i].readStringUntil('\r');
+            Serial.println("Received from client " + String(i) + ": " + request[1]);
 
-          if(syStatus == 0){
-            clients[i].println('0');
-            Serial.println("system is of so sent 0");
-            continue;
-          }
+            if(syStatus == 0){
+              clients[i].println('0');
+              Serial.println("system is of so sent 0");
+              continue;
+            }
 
-          if (request[1]== '1'){
-            Serial.println("Motion detected from unit \"" + String(i +1)+ "\"");
-            Blynk.virtualWrite(V3, 1); 
-            Blynk.logEvent("motion_detected");
-          }
+            if (request[1]== '1'){
+              Serial.println("Motion detected from unit \"" + String(i +1)+ "\"");
+              Blynk.virtualWrite(V3, 1); 
+              Blynk.logEvent("motion_detected");
+            }
 
-          // Process the received data
-          if ((request[1]== '1') && (buzStatus == 1)){
-            clients[i].println('1');
-            Serial.println("buzzer mode is auto so sent 1");
-          } else {
-            clients[i].println('0');
-            Serial.println("buzzer mode is manual so sent 0");
+            // Process the received data
+            if ((request[1]== '1') && (buzStatus == 1)){
+              clients[i].println('1');
+              Serial.println("buzzer mode is auto so sent 1");
+            } else {
+              clients[i].println('0');
+              Serial.println("buzzer mode is manual so sent 0");
+            }
           }
+        } else {
+          // Client disconnected, clean up
+          clients[i].stop();
+          clientActive[i] = false;
+          Serial.println("Client " + String(i) + " disconnected");
         }
-      } else {
-        // Client disconnected, clean up
-        clients[i].stop();
-        clientActive[i] = false;
-        Serial.println("Client " + String(i) + " disconnected");
       }
     }
-  }
-
-  if(buzzzVal && syStatus){
+  } else {
     for (int i = 0; i < maxUnits; i++){
       if (!clientActive[i]){
         clients[i].println('1');
