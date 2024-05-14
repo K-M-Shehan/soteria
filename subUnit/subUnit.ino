@@ -4,7 +4,7 @@ and to sound the buzzer to warn the intruder and inform the user about the user 
 the intruder via sounding the buzzer
 */
 
-#include "/media/g0602/New Volume/SLIIT_DOCs/Y1S1/Computational Thinking/soteria/esp8266-01/wi_fi/ssid.h" //you need to add the absolute link of this file here
+#include "/media/g0602/New Volume/SLIIT_DOCs/Y1S1/Computational Thinking/soteria/wi_fi/ssid.h" //you need to add the absolute link of this file here
 
 // Declaring GPIO 0 and GPIO 2 as buzzer and pir pins
 const int pir = 0;

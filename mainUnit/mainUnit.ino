@@ -1,4 +1,4 @@
-#include "/media/g0602/New Volume/SLIIT_DOCs/Y1S1/Computational Thinking/soteria/esp8266-01/wi_fi/ssid.h" //you need to add the absolute link of this file here
+#include "/media/g0602/New Volume/SLIIT_DOCs/Y1S1/Computational Thinking/soteria/wi_fi/ssid.h" //you need to add the absolute link of this file here
 
 
 WiFiServer unit_server(unitPort); // port to connect with the sub units
