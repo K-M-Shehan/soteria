@@ -36,12 +36,12 @@ BLYNK_WRITE(V0) {
 
 BLYNK_WRITE(V1) {
   buzStatus = param.asInt(); // getting values from the app and assining them to the variables
-  Serial.println("V0 = " + String(buzStatus));
+  Serial.println("V1 = " + String(buzStatus));
 }
 
 BLYNK_WRITE(V2) {
   buzzzVal = param.asInt(); // getting values from the app and assining them to the variables
-  Serial.println("V0 = " + String(buzzzVal));
+  Serial.println("V2 = " + String(buzzzVal));
 }
 
 void loop() {
@@ -70,20 +70,24 @@ void loop() {
           String request = clients[i].readStringUntil('\r');
           Serial.println("Received from client " + String(i) + ": " + request[1]);
 
-          if (request[1]== '1'){
-            Serial.println("Motion detected from unit \"" + String(i +1)+ "\"");
-            Blynk.virtualWrite(V3, int(request[1])); // Send notification to Blynk app
-          }
-
           if(syStatus == 0){
             clients[i].println('0');
+            Serial.println("system is of so sent 0");
             continue;
           }
+
+          if (request[1]== '1'){
+            Serial.println("Motion detected from unit \"" + String(i +1)+ "\"");
+            Blynk.virtualWrite(V3, 1); // Send notification to Blynk app
+          }
+
           // Process the received data
           if ((request[1]== '1') && (buzStatus == 1)){
             clients[i].println('1');
+            Serial.println("buzzer mode is auto so sent 1");
           } else {
             clients[i].println('0');
+            Serial.println("buzzer mode is manual so sent 0");
           }
         }
       } else {
@@ -95,11 +99,14 @@ void loop() {
     }
   }
 
-  while(buzzzVal){
+  if(buzzzVal && syStatus){
     for (int i = 0; i < maxUnits; i++){
-      clients[i].println('1');
+      if (!clientActive[i]){
+        clients[i].println('1');
+      }
     }
     Serial.println("Buzzzing........");
     Blynk.run();
   }
+  delay(100);
 }

@@ -102,5 +102,5 @@ void loop() {
     Serial.println("server is not available"); 
   }
 
-  delay(500);
+  delay(100);
 }
