@@ -102,12 +102,14 @@ void loop() {
     }
   } else {
     for (int i = 0; i < maxUnits; i++){
-      if (!clientActive[i]){
-        clients[i].println('1');
+      if (clientActive[i]){
+        clients[i].println('2');
       }
     }
+    Serial.println("sent 2 to all");
     Serial.println("Buzzzing........");
     Blynk.run();
+    delay(900);
   }
 
   Blynk.virtualWrite(V3, 0); 

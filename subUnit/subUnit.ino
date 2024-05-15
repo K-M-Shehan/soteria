@@ -92,11 +92,20 @@ void loop() {
 
   // Check for reply from server
   if (client.available()) {
+    bool buzzLoop;
+    do{
     String reply = client.readStringUntil('\r'); // Read a single character
     Serial.print("Server reply: ");
     Serial.println(reply[1]);
-
+    if (reply[1] == '2'){
+      reply[1] = '1';
+      buzzLoop = 1;
+      Serial.println("Buzzzing....");
+    } else {
+      buzzLoop = 0;
+    }
     action(reply[1]); // this will take action acording to the reply from the main unit
+    } while(buzzLoop == 1);
 
   } else {
     Serial.println("server is not available"); 
