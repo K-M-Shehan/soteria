@@ -1,5 +1,3 @@
-THIS BRANCH IS TO USE TO USE BLYNK TO CREATE APP AND CONTROL THE SYSTEM
-
 # soteria
 
 ## Overview
@@ -54,4 +52,3 @@ This project implements a door security system using PIR sensor, buzzer module, 
 
 ## Contributing
 Contributions to improve the project are welcome! Feel free to fork the repository, make changes, and submit a pull request.
-
